@@ -8,38 +8,48 @@
   <link href="http://www.jameskrayer.com/becmi-character-creator" hrefLang="en" />
   <link href="http://www.jameskrayer.com/becmi-character-creator" hrefLang="x-default" />
   <link href="http://www.jameskrayer.com/becmi-character-creator" rel="canonical" />
+  <link href="css/style.css" rel="stylesheet" />
   <!-- icons and social sharing -->
 </head>
 <body>
 
   <form id="score-form" class="" action="index.html" method="post">
-    <label for="">Strength
-      <input type="number" name="Strength" min="3" max="18">
-    </label>
+    <div class="border-box pad">
+      <label for="Strength">Strength</label>
+      <input type="number" id="Strength" name="Strength" min="3" max="18" />
+    </div>
 
-    <label for="">Intelligence
-      <input type="number" name="Intelligence" min="3" max="18">
-    </label>
+    <div class="border-box pad">
+      <label for="Intelligence">Intelligence</label>
+      <input type="number" id="Intelligence" name="Intelligence" min="3" max="18" />
+    </div>
 
-    <label for="">Wisdom
-      <input type="number" name="Wisdom" min="3" max="18">
-    </label>
+    <div class="border-box pad">
+      <label for="Wisdom">Wisdom</label>
+      <input type="number" id="Wisdom" name="Wisdom" min="3" max="18" />
+    </div>
 
-    <label for="">Dexterity
-      <input type="number" name="Dexterity" min="3" max="18">
-    </label>
+    <div class="border-box pad">
+      <label for="Dexterity">Dexterity</label>
+      <input type="number" id="Dexterity" name="Dexterity" min="3" max="18">
+    </div>
 
-    <label for="">Constitution
-      <input type="number" name="Constitution" min="3" max="18">
-    </label>
+    <div class="border-box pad">
+      <label for="Constitution">Constitution</label>
+      <input type="number" id="Constitution" name="Constitution" min="3" max="18">
+    </div>
 
-    <label for="">Charisma
-      <input type="number" name="Charisma" min="3" max="18">
-    </label>
+    <div class="border-box pad">
+      <label for="Charisma">Charisma</label>
+      <input type="number" id="Charisma" name="Charisma" min="3" max="18">
+    </div>
 
-    <button type="submit">Submit</button>
+    <div class="border-box pad">
+      <button type="submit">Submit</button>
+    </div>
   </form>
 
+  <script type="text/javascript" src="js/template.js"></script>
   <script type="text/javascript" src="js/formhandler.js"></script>
 
 
