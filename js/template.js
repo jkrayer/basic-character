@@ -1,5 +1,18 @@
 window.renderCharacters = (function() {
 
+  const numToString = num => num > 0 ? ['+', num].join('') : num;
+
+  const camelToBook = string => string.replace(/[A-Z]/g, match => ' ' + match);
+
+  function mapKeys(transformer, obj) {
+    return Object.keys(obj).reduce((acc, key) => (acc[transformer(key)] = obj[key], acc), {});
+  }
+
+
+  function parseScores(scores) {
+    return scores.map(score => score.map((v, i) => i === 2 ? numToString(v) : v))
+  }
+
   // Set a single property on the provided element
   function setProp(name, value, el) {
     if (name === 'className') {
@@ -77,14 +90,14 @@ window.renderCharacters = (function() {
     return makeElement('TABLE', { className: 'collapse ba br2 b--black-10 pv2 ph3 mh2 mv2' }, [
       makeElement('THEAD', {},
         head.map(arr => makeElement('TR', {},
-          arr.map(a => makeElement('TH', { className: 'pv2 ph3 f6 fw6 ttu br b--light-gray'}, [makeElement(a)]))
+          arr.map(a => makeElement('TH', { className: 'pv2 ph3 f6 fw6 ttu br b--moon-gray'}, [makeElement(a)]))
         ))
       ),
       makeElement('TBODY', {},
         body.map((arr, index) => makeElement('TR', { className: index % 2 === 0 ? 'striped--light-gray' : '' },
           arr.map((a, i) => {
             const tag = i === 0 ? 'TH' : 'TD';
-            let className = 'pv2 ph3 f6 br b--light-gray';
+            let className = 'pv2 ph3 f6 br b--moon-gray';
             className += i === 0 ? ' tr' : i === 2 ? ' tl' : ' tc';
 
             return makeElement(tag, { className }, [makeElement(a)])
@@ -106,7 +119,9 @@ window.renderCharacters = (function() {
       p([makeElement(`A ${name} starts with ${hitDie} + Constitution modifier hit points and gains 1d${hitDie}  + Constitution modifier each level thereafter`)]),
       p([makeElement(armor.description)]),
       p([makeElement(weapons.description)]),
-      table(savingThrows),
+      makeElement('H2', { className: 'f3 serif lh-title mh2 mv2' }, [makeElement('Saving Throws')]),
+      table(mapKeys(camelToBook, savingThrows)),
+      makeElement('H2', { className: 'f3 serif lh-title mh2 mv2' }, [makeElement('Hit Table')]),
       arrTable(hitRollTable)
     ]);
   }
@@ -118,7 +133,7 @@ window.renderCharacters = (function() {
     document.body.appendChild(
       makeElement('DIV', { className: 'character-tray' }, [
         makeElement('DIV', { className: 'child-div' }, [
-          vtable({ head: [['', 'Score', 'Modifier']], body: scores })
+          vtable({ head: [['', 'Score', 'Modifier']], body: parseScores(scores) })
         ]),
         makeElement('DIV', {'className':'characters-wrapper'},
           characters.map(character => characterPod(character))
