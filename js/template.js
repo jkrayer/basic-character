@@ -36,38 +36,61 @@ window.renderCharacters = (function() {
   }
 
   const header = makeElement.bind(null, 'HEADER', {});
-  const heading = makeElement.bind(null, 'H1', {});
-  const p = makeElement.bind(null, 'P', {});
+  const heading = makeElement.bind(null, 'H1', { className: 'f2 serif lh-title mh2 mv2' });
+  const p = makeElement.bind(null, 'P', { className: 'mh2 mv2 f5 lh-copy sans-serif' });
 
   function table(obj, formatter) {
     const form = formatter || (a => a);
 
-    return makeElement('TABLE', { className: 'table' }, [
+    return makeElement('TABLE', { className: 'collapse ba br2 b--black-10 pv2 ph3 mh2 mv2' }, [
       makeElement('THEAD', {}, [
-        makeElement('TR', {},
-          Object.keys(obj).map(key => makeElement('TH', {}, [makeElement(key)]))
+        makeElement('TR', { className: 'striped--light-gray' },
+          Object.keys(obj).map(key => makeElement('TH', { className: 'pv2 ph3 f6 fw6 ttu'}, [makeElement(key)]))
         )
       ]),
       makeElement('TBODY', {} ,[
         makeElement('TR', {},
-          Object.values(obj).map(val => makeElement('TD', {}, [makeElement(form(val))]))
+          Object.values(obj).map(val => makeElement('TD', { className: 'pv2 ph3 tc f6 br b--light-gray'}, [makeElement(form(val))]))
         )
       ])
     ]);
   }
 
   function arrTable(arr) {
-    return makeElement('TABLE', { className: 'table' }, [
+    return makeElement('TABLE', { className: 'collapse ba br2 b--black-10 pv2 ph3 mh2 mv2' }, [
       makeElement('THEAD', {}, [
-        makeElement('TR', {},
-          arr.map(a => makeElement('TH', {}, [makeElement(a[0])]))
+        makeElement('TR', { className: 'striped--light-gray' },
+          arr.map(a => makeElement('TH', { className: 'pv2 ph3 f6 fw6 ttu' }, [makeElement(a[0])]))
         )
       ]),
       makeElement('TBODY', {} ,[
         makeElement('TR', {},
-          arr.map(a => makeElement('TD', {}, [makeElement(a[1])]))
+          arr.map(a => makeElement('TD', { className: 'pv2 ph3 tc f6 br b--light-gray' }, [makeElement(a[1])]))
         )
       ])
+    ]);
+  }
+
+  function vtable(obj) {
+    const { head, body } = obj;
+
+    return makeElement('TABLE', { className: 'collapse ba br2 b--black-10 pv2 ph3 mh2 mv2' }, [
+      makeElement('THEAD', {},
+        head.map(arr => makeElement('TR', {},
+          arr.map(a => makeElement('TH', { className: 'pv2 ph3 f6 fw6 ttu br b--light-gray'}, [makeElement(a)]))
+        ))
+      ),
+      makeElement('TBODY', {},
+        body.map((arr, index) => makeElement('TR', { className: index % 2 === 0 ? 'striped--light-gray' : '' },
+          arr.map((a, i) => {
+            const tag = i === 0 ? 'TH' : 'TD';
+            let className = 'pv2 ph3 f6 br b--light-gray';
+            className += i === 0 ? ' tr' : i === 2 ? ' tl' : ' tc';
+
+            return makeElement(tag, { className }, [makeElement(a)])
+          })
+        ))
+      )
     ]);
   }
 
@@ -75,7 +98,7 @@ window.renderCharacters = (function() {
   function characterPod(character) {
     const { armor, weapons, name, hitDie, specialAbilities , savingThrows, hitRollTable} = character;
 
-    return makeElement('ARTICLE', {'className':'class-wrapper'}, [
+    return makeElement('ARTICLE', {'className':'mv4'}, [
       header([
         heading([makeElement(name)])
       ]),
@@ -95,7 +118,7 @@ window.renderCharacters = (function() {
     document.body.appendChild(
       makeElement('DIV', { className: 'character-tray' }, [
         makeElement('DIV', { className: 'child-div' }, [
-          table(scores, arr => `${arr[0]} (${arr[1]})`)
+          vtable({ head: [['', 'Score', 'Modifier']], body: scores })
         ]),
         makeElement('DIV', {'className':'characters-wrapper'},
           characters.map(character => characterPod(character))
