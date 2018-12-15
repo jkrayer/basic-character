@@ -28,7 +28,7 @@
 
     fetch([server, getQueryString(event.target)].join(''), { method: 'GET', headers: headers })
       .then(handleResponse)
-      .then(renderCharaters);
+      .then(renderCharacters);
   }
 
   // Add event listener
