@@ -1,6 +1,7 @@
 (function() {
   const server = 'http://127.0.0.1:3000/api/scores';
   let headers = new Headers();
+  const classResult = document.getElementById('class-result');
 
   headers.append('Accept', 'application/json');
 
@@ -18,6 +19,16 @@
     return response.json();
   }
 
+
+  function attachToDom(el, template, json) {
+    if (el.childNodes.length) {
+      el.removeChild(el.childNodes[0])
+    }
+
+    el.appendChild(template(json));
+  }
+
+
   /**
    * Fetch score modifiers and classes from server
    * @param  {Object} event
@@ -28,7 +39,8 @@
 
     fetch([server, getQueryString(event.target)].join(''), { method: 'GET', headers: headers })
       .then(handleResponse)
-      .then(renderCharacters);
+      .then(attachToDom.bind(null, classResult, renderCharacters))
+      .then(scroll(0, classResult.getBoundingClientRect().y - 10) );
   }
 
   // Add event listener

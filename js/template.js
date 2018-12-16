@@ -130,8 +130,7 @@ window.renderCharacters = (function() {
   return function renderCharacters(json) {
     const { scores, characters } = json.data;
 
-    document.body.appendChild(
-      makeElement('DIV', { className: 'character-tray' }, [
+    return makeElement('DIV', { className: 'character-tray' }, [
         makeElement('DIV', { className: 'child-div' }, [
           vtable({ head: [['', 'Score', 'Modifier']], body: parseScores(scores) })
         ]),
@@ -139,7 +138,6 @@ window.renderCharacters = (function() {
           characters.map(character => characterPod(character))
         )
       ])
-    )
   }
 
 }());
