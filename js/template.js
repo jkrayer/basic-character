@@ -1,4 +1,4 @@
-window.renderCharacters = (function() {
+(function(win) {
 
   const numToString = num => num > 0 ? ['+', num].join('') : num;
 
@@ -43,12 +43,12 @@ window.renderCharacters = (function() {
 
     // Feels like children could or should be "lazy" so that each child is invoked here
     // instead of being invoked before here (ex: el.appendChild(child()))
-    children.forEach(child => el.appendChild(child));
+    children.forEach(child => child !== null ? el.appendChild(child) : null);
 
     return el;
   }
 
-  const header = makeElement.bind(null, 'HEADER', {});
+  const header = makeElement.bind(null, 'HEADER', { className: 'flex items-center' });
   const heading = makeElement.bind(null, 'H1', { className: 'f2 serif lh-title mh2 mv2' });
   const p = makeElement.bind(null, 'P', { className: 'mh2 mv2 f5 lh-copy sans-serif' });
 
@@ -113,7 +113,8 @@ window.renderCharacters = (function() {
 
     return makeElement('ARTICLE', {'className':'mv4'}, [
       header([
-        heading([makeElement(name)])
+        heading([makeElement(name)]),
+        makeElement('A', { href: '#', className: 'selector', 'data-class-name': name}, [makeElement('Select')])
       ]),
       p([makeElement(specialAbilities.description)]),
       p([makeElement(`A ${name} starts with ${hitDie} + Constitution modifier hit points and gains 1d${hitDie}  + Constitution modifier each level thereafter`)]),
@@ -127,7 +128,7 @@ window.renderCharacters = (function() {
   }
 
   // Object -> Element
-  return function renderCharacters(json) {
+  function renderCharacters(json) {
     const { scores, characters } = json.data;
 
     return makeElement('DIV', { className: 'character-tray' }, [
@@ -140,4 +141,20 @@ window.renderCharacters = (function() {
       ])
   }
 
-}());
+  function renderInventory(json) {
+    const { armor, equipment, weapons, startingMoney } = json.data;
+console.log(json);
+    return makeElement('DIV', {}, [
+      heading([makeElement('Arms and Eqipment')]),
+      p([makeElement('You begin with ' + startingMoney + 'gp.')]),
+      armor.length ? makeElement('h2', {}, [makeElement('Armor')]) : null,
+      armor.length ? makeElement('h2', {}, [makeElement('Armor')]) : null,
+      weapons.length ? makeElement('h2', {}, [makeElement('Weapons')]) : null,
+      equipment.length ? makeElement('h2', {}, [makeElement('Equipment')]) : null
+    ]);
+  }
+
+  win.renderCharacters = renderCharacters;
+  win.renderInventory = renderInventory;
+
+}(window));
