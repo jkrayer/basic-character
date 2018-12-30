@@ -1,4 +1,8 @@
-# vue-basic-dnd
+# basic-character
+
+## Check it Out
+
+http://jameskrayer.com/basic/
 
 ## Project setup
 ```
