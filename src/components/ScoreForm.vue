@@ -97,13 +97,10 @@ export default {
     };
   },
   methods: {
-    // Mixins Here?
     getClasses() {
-      const path = 'scores?';
+      const path = `scores?${server.serialize(this.scores)}`;
 
-      fetch(`${server.server}${path}${server.serialize(this.scores)}`, { method: 'GET', headers: server.getHeaders() })
-        .then(server.handleResponse)
-        .then(json => this.$emit('characterResponse', json))
+      server.get(path).then(json => this.$emit('characterResponse', json));
     },
     handleInputUpdate(res) {
       this.scores[res.id] = res.value;

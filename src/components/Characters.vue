@@ -43,12 +43,9 @@
     },
     methods: {
       getEquipment(event) {
-        const path = 'equipment?name=';
-        const { className } = event.target.dataset
+        const path = `equipment?name=${event.target.dataset.className}`;
 
-        fetch(`${server.server}${path}${className}`, { method: 'GET', headers: server.getHeaders() })
-          .then(server.handleResponse)
-          .then(json => this.$emit('equipmentResponse', json));
+        server.get(path).then(json => this.$emit('equipmentResponse', json));
       }
     }
   }
