@@ -30,6 +30,7 @@
 <script>
   import KvTableVerticle from './KV-Table-Vertical';
   import TupleTableVerticle from './Tuple-Table-Vertical';
+  import server from '../helpers/server';
 
   export default {
     name: 'Characters',
@@ -42,20 +43,11 @@
     },
     methods: {
       getEquipment(event) {
-        const server = 'https://becmi-api.herokuapp.com/api/equipment?name=';
+        const path = 'equipment?name=';
         const { className } = event.target.dataset
-        let headers = new Headers();
-        headers.append('Accept', 'application/json');
 
-        function handleResponse(response) {
-          if (response.status !== 200) {
-            // throw past then?
-          }
-          return response.json();
-        }
-
-        fetch(`${server}${className}`, { method: 'GET', headers: headers })
-          .then(handleResponse)
+        fetch(`${server.server}${path}${className}`, { method: 'GET', headers: server.getHeaders() })
+          .then(server.handleResponse)
           .then(json => this.$emit('equipmentResponse', json));
       }
     }

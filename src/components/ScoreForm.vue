@@ -77,6 +77,7 @@
 
 <script>
 import Input from './Input';
+import server from '../helpers/server';
 
 export default {
   name: 'ScoreForm',
@@ -98,27 +99,10 @@ export default {
   methods: {
     // Mixins Here?
     getClasses() {
-      const server = 'https://becmi-api.herokuapp.com/api/scores?';
-      let headers = new Headers();
-      headers.append('Accept', 'application/json');
+      const path = 'scores?';
 
-      function serialize(obj) {
-        const str = Object.keys(obj).reduce(
-          (acc, key) => acc += `${key}=${obj[key]}&`, ''
-        );
-
-        return str.substring(0, str.length - 1)
-      }
-
-      function handleResponse(response) {
-        if (response.status !== 200) {
-          // throw past then?
-        }
-        return response.json();
-      }
-
-      fetch(`${server}${serialize(this.scores)}`, { method: 'GET', headers: headers })
-        .then(handleResponse)
+      fetch(`${server.server}${path}${server.serialize(this.scores)}`, { method: 'GET', headers: server.getHeaders() })
+        .then(server.handleResponse)
         .then(json => this.$emit('characterResponse', json))
     },
     handleInputUpdate(res) {
