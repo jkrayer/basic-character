@@ -1,45 +1,49 @@
 <template>
-  <div>
-    <article
-      v-for="character in characters"
-      class="mv4"
-    >
-      <header class="flex items-center">
-        <h1 class="f2 serif lh-title mh2 mv2">{{character.name}}</h1>
-        <a
-          href="#equipment"
-          class="selector"
-          :data-class-name="character.name"
-          @click.prevent="getEquipment(character.name)"
-        >
-          Select
-        </a>
-      </header>
-      <p class="mh2 mv2 f5 lh-copy sans-serif">A {{character.name}} attains Second Level at {{character.xpForNextLevel}} experience points. You gain a {{character.xpAdjustMent}}% bonus to experience points gained.</p>
-      <p class="mh2 mv2 f5 lh-copy sans-serif">{{character.specialAbilities.description}}</p>
-      <p class="mh2 mv2 f5 lh-copy sans-serif">{{character.armor.description}}</p>
-      <p class="mh2 mv2 f5 lh-copy sans-serif">{{character.weapons.description}}</p>
-      <h2 class="f3 serif lh-title mh2 mv2">Saving Throws</h2>
+  <article class="mh1 pos-rel">
+    <header>
+      <h1>{{character.name}}</h1>
+      <p class="txt-small pos-abs right" style="top: 6px;">{{character.xpAdjustMent}}% X.P. bonus</p>
+    </header>
+    <p>{{character.specialAbilities.description}}</p>
+    <div v-show="show">
+      <p><span class="weight-700">Armor:</span> {{character.armor.description}}</p>
+      <p><span class="weight-700">Weapons:</span> {{character.weapons.description}}</p>
+      <h2 class="head-small">Saving Throws</h2>
       <KvTableVerticle :data="character.savingThrows"/>
-      <h2 class="f3 serif lh-title mh2 mv2">Hit Table</h2>
+      <h2 class="head-small">Hit Table</h2>
       <TupleTableVerticle :data="character.hitRollTable" />
-    </article>
-  </div>
+    </div>
+    <button
+      type="button"
+      class="bg-blue txt-white weight-700 caps pad1 br mv1"
+      @click="toggleDetails">
+      {{ show ? 'Hide' : 'Show' }} Details
+    </button>
+    <button
+      type="button"
+      class="bg-blue txt-white weight-700 caps pad1 br mv1"
+      v-show="show"
+      @click="getEquipment(character.name)">
+      Buy Equipment
+    </button>
+  </article>
 </template>
 
 <script>
   import KvTableVerticle from './KV-Table-Vertical';
   import TupleTableVerticle from './Tuple-Table-Vertical';
-  import server from '../helpers/server';
 
   export default {
-    name: 'Characters',
+    name: 'CharacterCard',
     components: {
       KvTableVerticle,
       TupleTableVerticle
     },
+    props: {
+      character: Object
+    },
     data() {
-      return { characters: [] };
+      return { show: false };
     },
     methods: {
       getEquipment(className) {
@@ -47,15 +51,12 @@
           path: '/basic/equipment',
           query: { className }
         });
+      },
+      toggleDetails() {
+        this.show = !this.show;
       }
-    },
-    created() {
-      const path = `scores?${server.serialize(this.$route.query)}`;
-
-      server.get(path).then(json => this.characters = json.data.characters);
     }
-  }
-
+  };
 </script>
 
 <style>
