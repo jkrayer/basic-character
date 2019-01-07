@@ -2,11 +2,13 @@
  * TOC
  * *
  * 1. Reset
+ * x. Position
  * 2. Grid
  * 3. Padding & Margin
  * 4. Borders
  * 5. Text
  * 6. Color and Background Color
+ * x. Modules
  */
 
 /* 1. Reset */
@@ -31,26 +33,36 @@ input, button { border: none; }
   padding: 1rem;
 }
 
-/* 2. Grid */
+/* x. Position */
+.pos-rel { position: relative; }
+.pos-abs { position: absolute; }
+.right { right: 0; }
+
+/* 2. Grid
 .flex { display: flex; }
 .flex-hc { justify-content: center; }
 .flex-vc { align-content: center; }
 .flex-wrap { flex-wrap: wrap; }
-
 .col-50 { flex: 1 1 50%; }
+*/
 
 /* 3. Padding & Margin */
 .pad1 { padding: 1em; }
 .mt1 { margin-top: 1em; }
+.mh1 { margin-top: 1.5rem; margin-bottom: 1.5rem; }
+.mv1 { margin-right: .25rem; margin-left: .25rem; }
 
 /* 4. Borders */
 .bb { border-bottom: 1px solid; }
 .br { border-radius: .3em; }
 
 /* 5. Text */
-.txt-small { font-size: .625em; }
+.txt-small { font-size: .875em; }
+.txt-smaller { font-size: .625em; }
 .txt-right { text-align: right; }
+.txt-left { text-align: left; }
 .txt-center { text-align: center; }
+.head-small { font-size: 1rem; }
 .weight-700 { font-weight: 700; }
 .caps { text-transform: uppercase; }
 
