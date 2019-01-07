@@ -6,12 +6,16 @@
     </header>
     <p>{{character.specialAbilities.description}}</p>
     <div v-show="show">
+      <p><span class="weight-700">Hit Points:</span> You start with {{ character.hitDie }} + Con. modifier H.P. and gain 1d{{ character.hitDie }} + Con. modifier H.P. every level thereafter.</p>
       <p><span class="weight-700">Armor:</span> {{character.armor.description}}</p>
       <p><span class="weight-700">Weapons:</span> {{character.weapons.description}}</p>
       <div class="mh1">
         <h2 class="head-small">Saving Throws</h2>
         <table>
-          <tr v-for="(value, key) in character.savingThrows">
+          <tr
+            v-for="(value, key) in character.savingThrows"
+            :key="key"
+          >
             <th class="txt-left">{{ key.replace(/[A-Z]/g, a => ' ' + a).replace(/^[a-z]/, a => a.toUpperCase()) }}</th>
             <td>{{ value }}</td>
           </tr>
