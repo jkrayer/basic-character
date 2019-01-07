@@ -23,19 +23,27 @@
 
 <script>
   import StripedTable from './StripedTable';
+  import server from '../helpers/server';
 
   export default {
     name: 'Equipment',
     components: {
       StripedTable
     },
-    props: {
-      equipment: {
-        armor: [],
-        equipment: [],
-        startingMoney: null,
-        weapons: []
-      }
+    data() {
+      return {
+        equipment: {
+          armor: [],
+          equipment: [],
+          startingMoney: null,
+          weapons: []
+        }
+      };
+    },
+    created() {
+      const path = `equipment?name=${this.$route.query.className}`;
+
+      server.get(path).then(res => this.equipment = res.data);
     }
   }
 </script>

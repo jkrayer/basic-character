@@ -10,7 +10,7 @@
           href="#equipment"
           class="selector"
           :data-class-name="character.name"
-          @click.prevent="getEquipment"
+          @click.prevent="getEquipment(character.name)"
         >
           Select
         </a>
@@ -42,10 +42,11 @@
       return { characters: [] };
     },
     methods: {
-      getEquipment(event) {
-        const path = `equipment?name=${event.target.dataset.className}`;
-
-        server.get(path).then(json => this.$emit('equipmentResponse', json));
+      getEquipment(className) {
+        this.$router.push({
+          path: '/basic/equipment',
+          query: { className }
+        });
       }
     },
     created() {
