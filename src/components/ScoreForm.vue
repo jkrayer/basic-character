@@ -77,7 +77,6 @@
 
 <script>
 import Input from './Input';
-import server from '../helpers/server';
 
 export default {
   name: 'ScoreForm',
@@ -98,9 +97,10 @@ export default {
   },
   methods: {
     getClasses() {
-      const path = `scores?${server.serialize(this.scores)}`;
-
-      server.get(path).then(json => this.$emit('characterResponse', json));
+      this.$router.push({
+        path: '/basic/characters',
+        query: this.scores
+      });
     },
     handleInputUpdate(res) {
       this.scores[res.id] = res.value;
@@ -108,6 +108,3 @@ export default {
   }
 }
 </script>
-
-<style>
-</style>
