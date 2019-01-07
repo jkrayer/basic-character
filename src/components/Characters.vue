@@ -38,8 +38,8 @@
       KvTableVerticle,
       TupleTableVerticle
     },
-    props: {
-      characters: Array
+    data() {
+      return { characters: [] };
     },
     methods: {
       getEquipment(event) {
@@ -47,8 +47,14 @@
 
         server.get(path).then(json => this.$emit('equipmentResponse', json));
       }
+    },
+    created() {
+      const path = `scores?${server.serialize(this.$route.query)}`;
+
+      server.get(path).then(json => this.characters = json.data.characters);
     }
   }
+
 </script>
 
 <style>
