@@ -1,9 +1,9 @@
 <template>
-  <div class="flex flex-wrap flex-hc flex-vc">
-    <h1 class="f-headline lh-solid">Basic D&D Character Creator</h1>
+  <div>
+    <h1> Basic D&amp;D Character Creator</h1>
     <p>Enter scores to begin.</p>
     <ScoreForm />
-    <p>Version 1.1.0</p>
+    <p class="txt-small txt-right mt1">Version 1.1.0 (B<span class="txt-gray">ECMI</span>)</p>
   </div>
 </template>
 

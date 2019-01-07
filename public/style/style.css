@@ -1,0 +1,64 @@
+/**
+ * TOC
+ * *
+ * 1. Reset
+ * 2. Grid
+ * 3. Padding & Margin
+ * 4. Borders
+ * 5. Text
+ * 6. Color and Background Color
+ */
+
+/* 1. Reset */
+html, body, h1, h2, h3, h4, h5, h6, p {
+  padding: 0;
+  margin:0;
+  box-sizing: border-box;
+}
+
+html, body {
+  font-family: Futura, Helvetica, "Helvetica Neue", Arial, sans-serif;
+  line-height: 1;
+}
+
+h1, h2, h3, h4, h5, h6, p, label {
+  margin-bottom: .5em;
+}
+
+input, button { border: none; }
+
+#app {
+  padding: 1rem;
+}
+
+/* 2. Grid */
+.flex { display: flex; }
+.flex-hc { justify-content: center; }
+.flex-vc { align-content: center; }
+.flex-wrap { flex-wrap: wrap; }
+
+.col-50 { flex: 1 1 50%; }
+
+/* 3. Padding & Margin */
+.pad1 { padding: 1em; }
+.mt1 { margin-top: 1em; }
+
+/* 4. Borders */
+.bb { border-bottom: 1px solid; }
+.br { border-radius: .3em; }
+
+/* 5. Text */
+.txt-small { font-size: .625em; }
+.txt-right { text-align: right; }
+.txt-center { text-align: center; }
+.weight-700 { font-weight: 700; }
+.caps { text-transform: uppercase; }
+
+/* 6. Color and Background Color */
+.txt-gray { color: #aaa; }
+.txt-white { color: white; }
+
+.bg-gray { background-color: #aaa; }
+.bg-blue { background-color: #0085bf; }
+
+.border-black { border-color: black; }
