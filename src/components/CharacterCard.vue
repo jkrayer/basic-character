@@ -8,10 +8,19 @@
     <div v-show="show">
       <p><span class="weight-700">Armor:</span> {{character.armor.description}}</p>
       <p><span class="weight-700">Weapons:</span> {{character.weapons.description}}</p>
-      <h2 class="head-small">Saving Throws</h2>
-      <KvTableVerticle :data="character.savingThrows"/>
-      <h2 class="head-small">Hit Table</h2>
-      <TupleTableVerticle :data="character.hitRollTable" />
+      <div class="mh1">
+        <h2 class="head-small">Saving Throws</h2>
+        <table>
+          <tr v-for="(value, key) in character.savingThrows">
+            <th class="txt-left">{{ key.replace(/[A-Z]/g, a => ' ' + a).replace(/^[a-z]/, a => a.toUpperCase()) }}</th>
+            <td>{{ value }}</td>
+          </tr>
+        </table>
+      </div>
+      <div class="mh1">
+        <h2 class="head-small">Hit Table</h2>
+        <TupleTableVerticle :data="character.hitRollTable" />
+      </div>
     </div>
     <button
       type="button"
@@ -30,13 +39,11 @@
 </template>
 
 <script>
-  import KvTableVerticle from './KV-Table-Vertical';
   import TupleTableVerticle from './Tuple-Table-Vertical';
 
   export default {
     name: 'CharacterCard',
     components: {
-      KvTableVerticle,
       TupleTableVerticle
     },
     props: {
