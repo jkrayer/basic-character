@@ -1,10 +1,12 @@
 <template>
-  <table class="collapse ba br2 b--black-10 pv2 ph3 mh2 mv2">
+  <table class="w100 mh1">
     <thead>
       <tr>
         <th
-          v-for="head in header"
-          class="pv2 ph3 f6 fw6 ttu br b--moon-gray"
+          v-for="(head, index) in header"
+          class="underline cell"
+          :class="index === 0 ? 'txt-left' : ''"
+          :key="head"
         >
           {{head}}
         </th>
@@ -12,20 +14,20 @@
     </thead>
     <tbody>
       <tr
-        class="striped--light-gray"
         v-for="bod in body"
+        :key="bod.id"
       >
-        <th class="pv2 ph3 f6 br b--moon-gray tl">{{bod.name}}</th>
+        <th class="txt-left weight-400 cell">{{bod.name}}</th>
         <td
           v-if="bod.ac || bod.damage"
-          class="pv2 ph3 f6 br b--moon-gray tc"
+          class="txt-center cell"
         >
           {{bod.ac || bod.damage}}
         </td>
-        <td class="pv2 ph3 f6 br b--moon-gray tc">{{bod.cost}} gp.</td>
+        <td class="txt-center cell">{{bod.cost}} gp.</td>
         <td
           v-if="header.indexOf('Notes') > -1"
-          class="pv2 ph3 f6 tl"
+          class="txt-center cell"
         >
           {{bod.notes}}
         </td>
