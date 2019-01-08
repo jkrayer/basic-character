@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
+import CreateCharacter from './views/CreateCharacter.vue'
 
 Vue.use(Router)
 
@@ -12,6 +13,11 @@ export default new Router({
       path: '/basic/',
       name: 'home',
       component: Home
+    },
+    {
+      path: '/basic/create/',
+      name: 'create-character',
+      component: CreateCharacter
     },
     {
       path: '/basic/characters/',
