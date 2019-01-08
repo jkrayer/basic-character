@@ -38,17 +38,18 @@ input, button { border: none; }
 .pos-abs { position: absolute; }
 .right { right: 0; }
 
-/* 2. Grid
+/* 2. Grid */
 .flex { display: flex; }
 .flex-hc { justify-content: center; }
 .flex-vc { align-content: center; }
 .flex-wrap { flex-wrap: wrap; }
 .col-50 { flex: 1 1 50%; }
-*/
+
 
 /* 3. Padding & Margin */
 .pad1 { padding: 1em; }
 .mt1 { margin-top: 1em; }
+.mb1 { margin-bottom: 1em; }
 .mh1 { margin-top: 1.5rem; margin-bottom: 1.5rem; }
 .mv1 { margin-right: .25rem; margin-left: .25rem; }
 

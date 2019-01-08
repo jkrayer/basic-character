@@ -96,7 +96,7 @@
         class="txt-white weight-700 caps pad1 br"
         :class="submitDisabled ? 'bg-gray' : 'bg-blue'"
         type="submit"
-        @click.prevent="getClasses"
+        @click.prevent="validateScores"
         :disabled="submitDisabled"
       >Submit</button>
     </div>
@@ -104,37 +104,49 @@
 </template>
 
 <script>
-import Input from './Input';
+  import Input from './Input';
+  import server from '../helpers/server';
 
-export default {
-  name: 'ScoreForm',
-  components: {
-    Input
-  },
-  data() {
-    return {
-      scores: {
-        Strength: NaN,
-        Intelligence: NaN,
-        Wisdom: NaN,
-        Dexterity: NaN,
-        Constitution: NaN,
-        Charisma: NaN
-      },
-      submitDisabled: true
-    };
-  },
-  methods: {
-    getClasses() {
-      this.$router.push({
-        path: '/basic/characters',
-        query: this.scores
-      });
+  export default {
+    name: 'ScoreForm',
+    components: {
+      Input
     },
-    handleInputUpdate(res) {
-      this.scores[res.id] = res.value;
-      this.submitDisabled = Object.values(this.scores).find(isNaN) !== undefined;
+    data() {
+      return {
+        scores: {
+          Strength: NaN,
+          Intelligence: NaN,
+          Wisdom: NaN,
+          Dexterity: NaN,
+          Constitution: NaN,
+          Charisma: NaN
+        },
+        submitDisabled: true
+      };
+    },
+    methods: {
+      validateScores() {
+        const path = `scores?${server.serialize(this.scores)}`;
+        const self = this;
+
+        server.get(path)
+          .then(function(response) {
+            if (response.message !== 'success') {
+              self.$emit('scoresError', response);
+            }
+          });
+      },
+      listClasses() {
+        this.$router.push({
+          path: '/basic/characters',
+          query: this.scores
+        });
+      },
+      handleInputUpdate(res) {
+        this.scores[res.id] = res.value;
+        this.submitDisabled = Object.values(this.scores).find(isNaN) !== undefined;
+      }
     }
-  }
-}
+  };
 </script>
