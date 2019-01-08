@@ -1,8 +1,8 @@
 <template>
   <div>
     <h1 class="mh1">Arms and Equipment</h1>
-    <div v-if="response === false">
-      Loading&hellip;
+    <div v-if="response !== 'success'">
+      {{ message }}
     </div>
     <div v-if="response === 'success'">
       <h2
@@ -41,19 +41,25 @@
     },
     data() {
       return {
-        response: false,
+        message: 'Loading&hellip;',
+        response: null,
         armor: [],
         equipment: [],
         weapons: []
       };
     },
     created() {
-      server.getEquipment({name: 'Fighter'}) // this.$route.query
+      server.getEquipment(this.$route.query)
         .then(res => {
-          this.response = res.message;
-          this.armor = res.data.armor;
-          this.equipment = res.data.equipment;
-          this.weapons =res.data.weapons;
+          if (res.message === 'success') {
+            this.response = res.message;
+            this.armor = res.data.armor;
+            this.equipment = res.data.equipment;
+            this.weapons =res.data.weapons;
+          } else {
+            this.message = 'No equipment can be found at this time. Please try again later or select a different filter.';
+            this.response = false;
+          }
         });
     }
   };
