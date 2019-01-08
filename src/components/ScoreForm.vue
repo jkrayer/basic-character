@@ -128,20 +128,13 @@
     methods: {
       validateScores() {
         const path = `scores?${server.serialize(this.scores)}`;
-        const self = this;
 
         server.get(path)
-          .then(function(response) {
-            if (response.message !== 'success') {
-              self.$emit('scoresError', response);
-            }
+          .then(response => {
+            response.message !== 'success'
+              ? this.$emit('scoresError', response)
+              : this.$emit('scores', { scores: response.data.scores })
           });
-      },
-      listClasses() {
-        this.$router.push({
-          path: '/basic/characters',
-          query: this.scores
-        });
       },
       handleInputUpdate(res) {
         this.scores[res.id] = res.value;
