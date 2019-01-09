@@ -85,6 +85,17 @@
     },
     created() {
       getScores.call(this, this.$route.query);
+    },
+    beforeRouteUpdate(to, from, next) {
+      if (Object.keys(to.query).length === 0) {
+        this.message = 'Enter scores to begin.';
+        this.scores = [];
+        this.characters = [];
+      } else {
+        getScores.call(this, to.query);
+      }
+
+      next();
     }
   }
 </script>
