@@ -41,6 +41,18 @@
 <script>
   import ScoreForm from '@/components/ScoreForm';
   import server from '@/helpers/server';
+  import valid from '@/helpers/validators';
+
+  function getScores(query) {
+    if (valid.isValidScoreObject(query)) {
+      server.getScores(query)
+        .then(response => {
+          response.message !== 'success'
+            ? this.message = response.message
+            : this.scores = response.data.scores;
+        });
+    }
+  }
 
   export default {
     name: 'home',
@@ -55,19 +67,17 @@
     },
     methods: {
       handleSubmit(scores) {
-        const path = `scores?${server.serialize(scores)}`;
-
-        this.$router.push({
-          path: '/basic/create',
-          query: scores
-        });
-
-        server.get(path)
-          .then(response => {
-            response.message !== 'success'
-              ? this.message = response.message
-              : this.scores = response.data.scores;
+        if (valid.isValidScoreObject(scores)) {
+          this.$router.push({
+            path: '/basic/create',
+            query: scores
           });
+
+          getScores.call(this, scores);
+
+        } else {
+          this.message = 'Invalid Scores. You should have 6 scores with values from 3 - 18.';
+        }
       },
       listClasses() {
         this.$router.push({
@@ -75,6 +85,9 @@
           query: this.scores.reduce((acc, score) => (acc[score[0]] = score[1], acc), {})
         });
       }
+    },
+    created() {
+      getScores.call(this, this.$route.query);
     }
   }
 </script>
