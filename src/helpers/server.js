@@ -34,5 +34,6 @@ function get(path) {
 export default {
   serialize,
   get,
-  getEquipment: query => get(`equipment/?${serialize(query)}`)
+  getEquipment: query => get(`equipment/?${serialize(query)}`),
+  getScores: query => get(`scores?${serialize(query)}`)
 };
