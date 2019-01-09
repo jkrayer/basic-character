@@ -1,6 +1,23 @@
 <template>
   <div>
     <h1 class="mh1">Arms and Equipment</h1>
+    <div class="mh1">
+      <!-- TODO: Select Component -->
+      <select
+        v-if="response != null"
+        v-on:change="handleFilter"
+      >
+        <option value="">Show All</option>
+        <option
+          v-for="val in classes"
+          :value="val"
+          :key="val"
+          :selected="selected === val"
+        >
+          {{ val }}
+        </option>
+      </select>
+    </div>
     <div v-if="response !== 'success'">
       {{ message }}
     </div>
@@ -34,6 +51,23 @@
   import StripedTable from '@/components/StripedTable';
   import server from '../helpers/server';
 
+  function getEquipment(query) {
+    this.selected = query.name;
+
+    server.getEquipment(query)
+      .then(res => {
+        if (res.message === 'success') {
+          this.response = res.message;
+          this.armor = res.data.armor;
+          this.equipment = res.data.equipment;
+          this.weapons =res.data.weapons;
+        } else {
+          this.message = 'No equipment can be found at this time. Please try again later or select a different filter.';
+          this.response = false;
+        }
+      });
+  }
+
   export default {
     name: 'equipment-view',
     components: {
@@ -45,22 +79,25 @@
         response: null,
         armor: [],
         equipment: [],
-        weapons: []
+        weapons: [],
+        selected: '',
+        classes: ['Cleric', 'Dwarf','Elf', 'Fighter', 'Halfling', 'Magic-User', 'Thief'] // TODO get this list from the server
       };
     },
-    created() {
-      server.getEquipment(this.$route.query)
-        .then(res => {
-          if (res.message === 'success') {
-            this.response = res.message;
-            this.armor = res.data.armor;
-            this.equipment = res.data.equipment;
-            this.weapons =res.data.weapons;
-          } else {
-            this.message = 'No equipment can be found at this time. Please try again later or select a different filter.';
-            this.response = false;
-          }
+    methods: {
+      handleFilter(event) {
+        this.$router.push({
+          path: '/basic/equipment',
+          query: event.target.value ? { name: event.target.value } : {}
         });
+      }
+    },
+    created() {
+      getEquipment.call(this, this.$route.query);
+    },
+    beforeRouteUpdate(to, from, next) {
+      getEquipment.call(this, to.query);
+      next();
     }
   };
 </script>
