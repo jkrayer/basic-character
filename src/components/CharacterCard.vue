@@ -16,7 +16,7 @@
             v-for="(value, key) in character.savingThrows"
             :key="key"
           >
-            <th class="txt-left">{{ key.replace(/[A-Z]/g, a => ' ' + a).replace(/^[a-z]/, a => a.toUpperCase()) }}</th>
+            <th class="txt-left">{{ key | titleCase }}</th>
             <td>{{ value }}</td>
           </tr>
         </table>
@@ -65,6 +65,11 @@
       },
       toggleDetails() {
         this.show = !this.show;
+      }
+    },
+    filters: {
+      titleCase(str) {
+        return str.replace(/[A-Z]/g, a => ' ' + a).replace(/^[a-z]/, a => a.toUpperCase());
       }
     }
   };
