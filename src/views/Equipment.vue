@@ -86,7 +86,7 @@
     },
     methods: {
       handleFilter(event) {
-        this.$router.push({
+        this.$router.replace({
           path: '/basic/equipment',
           query: event.target.value ? { name: event.target.value } : {}
         });
