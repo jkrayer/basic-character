@@ -49,7 +49,7 @@
         .then(response => {
           response.message !== 'success'
             ? this.message = response.message
-            : this.scores = response.data.scores;
+            : Object.assign(this, response.data);
         });
     }
   }
@@ -62,7 +62,8 @@
     data() {
       return {
         message: 'Enter scores to begin.',
-        scores: []
+        scores: [],
+        characters: []
       }
     },
     methods: {
@@ -80,10 +81,6 @@
         }
       },
       listClasses() {
-        this.$router.push({
-          path: '/basic/characters',
-          query: this.scores.reduce((acc, score) => (acc[score[0]] = score[1], acc), {})
-        });
       }
     },
     created() {
