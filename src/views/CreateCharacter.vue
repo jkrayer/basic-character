@@ -4,8 +4,7 @@
     <div v-if="scores.length === 0">
       <p class="mb1">{{ message }}</p>
       <ScoreForm
-        @scoresError="handleScoresError"
-        @scores="handleScores"
+        @submit="handleSubmit"
       />
     </div>
     <div v-if="scores.length > 0">
@@ -36,12 +35,12 @@
         List Classes
       </button>
     </div>
-    <p class="txt-smaller txt-right mt1">Version 1.1.0 (B<span class="txt-gray">ECMI</span>)</p>
   </div>
 </template>
 
 <script>
   import ScoreForm from '@/components/ScoreForm';
+  import server from '@/helpers/server';
 
   export default {
     name: 'home',
@@ -55,11 +54,20 @@
       }
     },
     methods: {
-      handleScoresError(response) {
-        this.message = response.message;
-      },
-      handleScores(response) {
-        this.scores = response.scores;
+      handleSubmit(scores) {
+        const path = `scores?${server.serialize(scores)}`;
+
+        this.$router.push({
+          path: '/basic/create',
+          query: scores
+        });
+
+        server.get(path)
+          .then(response => {
+            response.message !== 'success'
+              ? this.message = response.message
+              : this.scores = response.data.scores;
+          });
       },
       listClasses() {
         this.$router.push({

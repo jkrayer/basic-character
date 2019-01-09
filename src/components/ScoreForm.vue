@@ -1,7 +1,7 @@
 <template>
-  <form id="score-form" action="index.html" method="post">
+  <form id="score-form" action="index.html" method="get">
     <div class="flex flex-hc">
-      <label for="Strength" class="col-50">Strength </label>
+      <label for="Strength" class="col-50">Strength</label>
       <div class="col-50 txt-center">
         <Input
           @inputBlur="handleInputUpdate"
@@ -17,7 +17,7 @@
       </div>
     </div>
     <div class="flex flex-hc">
-      <label for="Intelligence" class="col-50">Intelligence </label>
+      <label for="Intelligence" class="col-50">Intelligence</label>
       <div class="col-50 txt-center">
         <Input
           @inputBlur="handleInputUpdate"
@@ -32,7 +32,7 @@
       </div>
     </div>
     <div class="flex flex-hc">
-      <label for="Wisdom" class="col-50">Wisdom </label>
+      <label for="Wisdom" class="col-50">Wisdom</label>
       <div class="col-50 txt-center">
         <Input
           @inputBlur="handleInputUpdate"
@@ -47,7 +47,7 @@
       </div>
     </div>
     <div class="flex flex-hc">
-      <label for="Dexterity" class="col-50">Dexterity </label>
+      <label for="Dexterity" class="col-50">Dexterity</label>
       <div class="col-50 txt-center">
         <Input
           @inputBlur="handleInputUpdate"
@@ -62,7 +62,7 @@
       </div>
     </div>
     <div class="flex flex-hc">
-      <label for="Constitution" class="col-50">Constitution </label>
+      <label for="Constitution" class="col-50">Constitution</label>
       <div class="col-50 txt-center">
         <Input
           @inputBlur="handleInputUpdate"
@@ -77,7 +77,7 @@
       </div>
     </div>
     <div class="flex flex-hc">
-      <label for="Charisma" class="col-50">Charisma </label>
+      <label for="Charisma" class="col-50">Charisma</label>
       <div class="col-50 txt-center">
         <Input
           @inputBlur="handleInputUpdate"
@@ -105,7 +105,6 @@
 
 <script>
   import Input from './Input';
-  import server from '../helpers/server';
 
   export default {
     name: 'ScoreForm',
@@ -127,14 +126,13 @@
     },
     methods: {
       validateScores() {
-        const path = `scores?${server.serialize(this.scores)}`;
-
-        server.get(path)
-          .then(response => {
-            response.message !== 'success'
-              ? this.$emit('scoresError', response)
-              : this.$emit('scores', { scores: response.data.scores })
-          });
+        // TODO Actually Validate the form
+        // if (valid) {
+        //   this.$emit('submit', this.scores);
+        // } else {
+        //   manage input errors
+        // }
+        this.$emit('submit', this.scores);
       },
       handleInputUpdate(res) {
         this.scores[res.id] = res.value;
