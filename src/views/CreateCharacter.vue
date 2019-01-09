@@ -35,11 +35,20 @@
         List Classes
       </button>
     </div>
+    <div v-if="characters.length > 0">
+      <h1>Available Characters</h1>
+      <CharacterCard
+        v-for="character in characters"
+        :key="character.name"
+        :character="character"
+      ></CharacterCard>
+    </div>
   </div>
 </template>
 
 <script>
   import ScoreForm from '@/components/ScoreForm';
+  import CharacterCard from '@/components/CharacterCard';
   import server from '@/helpers/server';
   import valid from '@/helpers/validators';
 
@@ -57,6 +66,7 @@
   export default {
     name: 'home',
     components: {
+      CharacterCard,
       ScoreForm
     },
     data() {
