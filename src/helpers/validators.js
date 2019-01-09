@@ -1,5 +1,4 @@
 function isValidScoreObject(obj) {
-  console.log('v2', obj)
   return [
     [ 'Strength',
       'Intelligence',
