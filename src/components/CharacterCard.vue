@@ -57,10 +57,10 @@
       return { show: false };
     },
     methods: {
-      getEquipment(className) {
+      getEquipment(name) {
         this.$router.push({
           path: '/basic/equipment',
-          query: { className }
+          query: { name }
         });
       },
       toggleDetails() {
