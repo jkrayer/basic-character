@@ -1,5 +1,4 @@
-import { shallowMount } from '@vue/test-utils';
-import valid from '../../src/helpers/validators';
+import valid from '@/helpers/validators';
 
 describe('valid.isValidScoreObject', () => {
   test('validates numeric strings and numbers', () => {
