@@ -12,13 +12,15 @@
       <div class="mh1">
         <h2 class="head-small">Saving Throws</h2>
         <table>
-          <tr
-            v-for="(value, key) in character.savingThrows"
-            :key="key"
-          >
-            <th class="txt-left">{{ key | titleCase }}</th>
-            <td>{{ value }}</td>
-          </tr>
+          <tbody>
+            <tr
+              v-for="(value, key) in character.savingThrows"
+              :key="key"
+            >
+              <th class="txt-left">{{ key | titleCase }}</th>
+              <td>{{ value }}</td>
+            </tr>
+          </tbody>
         </table>
       </div>
       <div class="mh1">
@@ -51,7 +53,10 @@
       TableVerticle
     },
     props: {
-      character: Object
+      character: {
+        type: Object,
+        required: true
+      }
     },
     data() {
       return { show: false };
@@ -74,6 +79,3 @@
     }
   };
 </script>
-
-<style>
-</style>

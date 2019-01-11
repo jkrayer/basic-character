@@ -8,7 +8,7 @@ const factory = (values = {}, propsData = {}) => {
       return { ...values };
     },
     propsData
-  })
+  });
 }
 
 describe('components/Input', () => {

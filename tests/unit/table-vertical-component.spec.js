@@ -11,7 +11,7 @@ const factory = (propsData = {}) => {
         ['Kid', 'Pebbles', 'Bam Bam']
       ]
     }
-  })
+  });
 }
 
 describe('components/TableVerticle', () => {

@@ -3,7 +3,7 @@ import { shallowMount } from '@vue/test-utils'
 import EquipmentTable from '@/components/EquipmentTable.vue';
 
 const factory = (propsData = {}) => {
-  return shallowMount(EquipmentTable, { propsData })
+  return shallowMount(EquipmentTable, { propsData });
 }
 
 describe('components/EquipmentTable', () => {
