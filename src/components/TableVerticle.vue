@@ -15,7 +15,7 @@
 
 <script>
   export default {
-    name: 'TupleTableVerticle',
+    name: 'TableVerticle',
     props: {
       data: {
         type: Array,

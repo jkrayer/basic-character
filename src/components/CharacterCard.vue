@@ -23,7 +23,7 @@
       </div>
       <div class="mh1">
         <h2 class="head-small">Hit Table</h2>
-        <TupleTableVerticle :data="character.hitRollTable" />
+        <TableVerticle :data="character.hitRollTable" />
       </div>
     </div>
     <button
@@ -43,12 +43,12 @@
 </template>
 
 <script>
-  import TupleTableVerticle from './Tuple-Table-Vertical';
+  import TableVerticle from '@/components/TableVerticle';
 
   export default {
     name: 'CharacterCard',
     components: {
-      TupleTableVerticle
+      TableVerticle
     },
     props: {
       character: Object
