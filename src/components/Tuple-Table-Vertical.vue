@@ -1,10 +1,9 @@
 <template>
-  <table class="collapse ba br2 b--black-10 pv2 ph3 mh2 mv2">
+  <table>
     <thead>
-      <tr class="striped--light-gray">
+      <tr>
         <th
           v-for="d in data"
-          class="pv2 ph3 f6 fw6 ttu"
         >{{d[0]}}
         </th>
       </tr>
@@ -13,7 +12,6 @@
       <tr>
         <td
           v-for="d in data"
-          class="pv2 ph3 tc f6 br b--light-gray"
         >{{d[1]}}
         </td>
       </tr>
@@ -29,6 +27,3 @@ export default {
   }
 }
 </script>
-
-<style>
-</style>
