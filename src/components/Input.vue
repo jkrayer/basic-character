@@ -1,13 +1,10 @@
 <template>
-  <input
-    :type="type"
-    :id="id"
-    :min="min"
-    :max="max"
-    :required="required"
-    v-model="data"
-    @change.lazy="transmitValue"
-  />
+    <input
+      :type="type"
+      :id="id"
+      v-model="data"
+      @change.lazy="transmitValue"
+    />
 </template>
 
 <script>
@@ -21,29 +18,20 @@ export default {
     id: {
       type: String,
       required: true
-    },
-    min: Number,
-    max: Number,
-    required: {
-      type: Boolean,
-      default: false
     }
   },
   data() {
-    return {
-      data: ''
-    };
+    return { data: '' };
   },
   methods: {
-    transmitValue(event) {
-      const value = this._props.type === 'number' ? parseInt(event.target.value, 10) : event.target.value;
+    transmitValue() {
       this.$emit('inputBlur', {
-        id: event.target.id,
-        value
+        id: this.id,
+        value: this.data
       });
     }
   }
-}
+};
 </script>
 
 <style>
