@@ -28,18 +28,18 @@
       >
         Armor:
       </h2>
-      <StripedTable
+      <EquipmentTable
         v-if="armor.length > 0"
         :header="['Name', 'AC', 'Cost']"
         :body="armor"
       />
       <h2 class="caps txt-large">Weapons:</h2>
-      <StripedTable
+      <EquipmentTable
         :header="['Name', 'Damage', 'Cost', 'Notes']"
         :body="weapons"
       />
       <h2 class="caps txt-large">Equipment:</h2>
-      <StripedTable
+      <EquipmentTable
         :header="['Name', 'Cost']"
         :body="equipment"
       />
@@ -48,7 +48,7 @@
 </template>
 
 <script>
-  import StripedTable from '@/components/StripedTable';
+  import EquipmentTable from '@/components/EquipmentTable';
   import server from '../helpers/server';
 
   function getEquipment(query) {
@@ -71,7 +71,7 @@
   export default {
     name: 'equipment-view',
     components: {
-      StripedTable
+      EquipmentTable
     },
     data() {
       return {
