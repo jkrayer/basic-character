@@ -49,7 +49,8 @@ describe('components/Input', () => {
   // TODO Suppress the console statment
   test.skip('warns when a required attribute is not set', () => {
     const spy = jest.spyOn(console, 'error');
-    const wrapper = factory();
+
+    factory();
 
     expect(spy).toHaveBeenCalled();
 

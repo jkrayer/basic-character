@@ -1,9 +1,8 @@
-import Vue from 'vue';
 import { shallowMount } from '@vue/test-utils'
 import CharacterCard from '@/components/CharacterCard.vue';
 import character from '../data/character';
 
-const factory = (propsData = {}) => {
+const factory = () => {
   return shallowMount(CharacterCard, {
     propsData: {
       character

@@ -1,8 +1,7 @@
-import Vue from 'vue';
 import { mount } from '@vue/test-utils'
 import ScoreForm from '@/components/ScoreForm.vue';
 
-const factory = (propsData = {}) => {
+const factory = () => {
   return mount(ScoreForm);
 }
 
@@ -21,7 +20,6 @@ describe('components/ScoreForm', () => {
 
   test('form emits scores', () => {
     const wrapper = factory();
-    const button = wrapper.find('button');
     const spy = jest.spyOn(wrapper.vm, '$emit');
     const scores = {
       Strength: 12,

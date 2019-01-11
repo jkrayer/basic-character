@@ -2,8 +2,8 @@
     <input
       :type="type"
       :id="id"
-      v-model="data"
-      @change.lazy="transmitValue"
+      v-model.lazy="data"
+      @change="transmitValue"
     />
 </template>
 

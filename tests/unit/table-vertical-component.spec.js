@@ -1,8 +1,7 @@
-import Vue from 'vue';
 import { shallowMount } from '@vue/test-utils'
 import TableVerticle from '@/components/TableVerticle.vue';
 
-const factory = (propsData = {}) => {
+const factory = () => {
   return shallowMount(TableVerticle, {
     propsData: {
       data: [
