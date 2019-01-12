@@ -15,19 +15,25 @@ function getHeaders() {
   return headers;
 }
 
-export default {
-  serialize(obj) {
-    const str = Object.keys(obj).reduce(
-      (acc, key) => acc += `${key}=${obj[key]}&`, ''
-    );
+function serialize(obj) {
+  const str = Object.keys(obj).reduce(
+    (acc, key) => acc += `${key}=${obj[key]}&`, ''
+  );
 
-    return str.substring(0, str.length - 1);
-  },
-  get(path) {
-    return fetch(
-      `${server}${path}`,
-      { method: 'GET', headers: getHeaders() }
-    )
-    .then(handleResponse);
-  }
+  return str.substring(0, str.length - 1);
+}
+
+function get(path) {
+  return fetch(
+    `${server}${path}`,
+    { method: 'GET', headers: getHeaders() }
+  )
+  .then(handleResponse);
+}
+
+export default {
+  serialize,
+  get,
+  getEquipment: query => get(`equipment/?${serialize(query)}`),
+  getScores: query => get(`scores?${serialize(query)}`)
 };
