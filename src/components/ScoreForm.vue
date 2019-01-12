@@ -97,7 +97,6 @@
         :class="submitDisabled ? 'bg-gray' : 'bg-blue'"
         type="submit"
         @click.prevent="validateScores"
-        :disabled="submitDisabled"
       >Submit</button>
     </div>
   </form>
