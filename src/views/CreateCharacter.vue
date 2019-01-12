@@ -92,10 +92,24 @@
       listClasses() {
         this.showCharacters = true;
         this.activeKey = 1;
+
+        this.$router.push({
+          path: '/basic/create',
+          query: { ...this.$route.query, show: true }
+        });
       }
     },
     created() {
-      getScores.call(this, this.$route.query);
+      const scores = Object.assign({}, this.$route.query);
+
+      delete scores.show;
+
+      if (this.$route.query.show) {
+        this.showCharacters =  true;
+        this.activeKey = 1;
+      }
+
+      getScores.call(this, scores);
     },
     beforeRouteUpdate(to, from, next) {
       if (Object.keys(to.query).length === 0) {
@@ -104,6 +118,14 @@
         this.characters = [];
       } else {
         getScores.call(this, to.query);
+      }
+
+      if (to.query.show) {
+        this.showCharacters =  true;
+        this.activeKey = 1;
+      } else {
+        this.showCharacters =  false;
+        this.activeKey = 0;
       }
 
       next();
