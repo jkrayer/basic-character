@@ -15,7 +15,6 @@ describe('components/ScoreForm', () => {
     expect(wrapper.findAll('label').length).toBe(6);
     expect(inputs.length).toBe(6);
     expect(button.exists()).toBe(true);
-    expect(button.attributes('disabled')).toBe('disabled');
   });
 
   test('form emits scores', () => {
