@@ -34,13 +34,7 @@
       @click="toggleDetails">
       {{ show ? 'Hide' : 'Show' }} Details
     </button>
-    <button
-      type="button"
-      class="bg-blue txt-white weight-700 caps pad1 br mv1"
-      v-show="show"
-      @click="getEquipment(character.name)">
-      Buy Equipment
-    </button>
+    <slot></slot>
   </article>
 </template>
 
@@ -62,12 +56,6 @@
       return { show: false };
     },
     methods: {
-      getEquipment(name) {
-        this.$router.push({
-          path: '/basic/equipment',
-          query: { name }
-        });
-      },
       toggleDetails() {
         this.show = !this.show;
       }

@@ -53,25 +53,6 @@ describe('components/CharacterCard', () => {
     wrapper.find('button').trigger('click');
 
     expect(wrapper.find('div').isVisible()).toBe(true);
-    expect(wrapper.findAll('button').at(1).isVisible()).toBe(true);
-  });
-
-  test('buy equipment button tries to navigate to the equipment page', () => {
-    const wrapper = factory();
-    const spy = jest.spyOn(wrapper.vm, 'getEquipment');
-    const routerSpy = jest.spyOn(wrapper.vm.$router, 'push');
-
-    wrapper.find('button').trigger('click');
-    wrapper.findAll('button').at(1).trigger('click');
-
-    expect(spy).toHaveBeenCalled();
-    expect(routerSpy).toHaveBeenCalledWith({
-      path: '/basic/equipment',
-      query: { name: 'Magic-User' }
-    });
-
-    spy.mockRestore();
-    routerSpy.mockRestore();
   });
 
   // filters

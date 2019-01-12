@@ -36,7 +36,14 @@
         v-for="character in characters"
         :key="character.name"
         :character="character"
-      ></CharacterCard>
+      >
+        <button
+          type="button"
+          class="bg-blue txt-white weight-700 caps pad1 br mv1"
+          @click="getEquipment(character.name)">
+          Buy Equipment
+        </button>
+      </CharacterCard>
     </div>
   </div>
 </template>
@@ -96,6 +103,12 @@
         this.$router.push({
           path: '/basic/create',
           query: { ...this.$route.query, show: true }
+        });
+      },
+      getEquipment(name) {
+        this.$router.push({
+          path: '/basic/equipment',
+          query: { name }
         });
       }
     },
